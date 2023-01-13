@@ -8,7 +8,11 @@ class Mouser:
         requestbody = {"SearchByPartRequest": { "mouserPartNumber": partnumber, "partSearchOptions": 2}}
         parameters = {'apiKey': API_Key}
 
-        response = requests.post(url, params=parameters,json=requestbody).json()
+        headers = {
+            'x-requested-with': 'XMLHttpRequest'
+        }
+
+        response = requests.post(url, headers=headers, params=parameters,json=requestbody).json()
         searchresults = response["SearchResults"]
 
         if searchresults.get('NumberOfResult', 0) > 0:
